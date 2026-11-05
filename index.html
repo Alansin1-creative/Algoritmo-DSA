@@ -8,56 +8,106 @@
     [hidden] { display: none !important; }
     body {
       margin: 0;
-      background: #fff;
-      color: #161616;
+      background: #f3f3f3;
+      color: #1a1a1a;
       font: 16px/1.5 "Segoe UI", sans-serif;
     }
-    main { max-width: 1040px; margin: 0 auto; padding: 20px 16px 64px; }
-    h1 { font-size: 20px; font-weight: 650; margin: 0; }
-    h2 { font-size: 16px; font-weight: 650; margin: 0 0 8px; }
+    main { max-width: 1080px; margin: 0 auto; padding: 28px 20px 72px; }
+    h1 { font-size: 22px; font-weight: 650; margin: 0; letter-spacing: -0.02em; }
+    h2 { font-size: 16px; font-weight: 650; margin: 0; }
     .barra {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 10px;
-      padding: 16px;
-      border-bottom: 1px solid #ccc;
+      gap: 12px;
+      padding: 16px 20px;
+      background: #fff;
+      border-bottom: 1px solid #e2e2e2;
       text-align: center;
     }
+    .equipo { margin: 2px 0 0; color: #666; font-size: 13px; }
     .barra-acciones { display: flex; gap: 8px; align-items: center; }
-    button.claro { background: #fff; color: #161616; }
-    button.activo { background: #161616; color: #fff; }
-    label { display: block; margin: 10px 0 4px; }
-    input {
+    .quien { font-weight: 650; }
+    button.claro { background: #fff; color: #1a1a1a; }
+    button.claro:hover { background: #f3f3f3; }
+    button.activo { background: #1a1a1a; color: #fff; }
+    label { display: block; margin: 16px 0 6px; font-size: 14px; color: #333; }
+    input, textarea {
       width: 100%;
       box-sizing: border-box;
-      padding: 8px;
-      border: 1px solid #888;
+      padding: 10px 12px;
+      border: 1px solid #c8c8c8;
       font: inherit;
       background: #fff;
-      color: #161616;
+      color: #1a1a1a;
     }
+    input:focus, textarea:focus { outline: 2px solid #1a1a1a; outline-offset: 1px; }
     #acceso { display: flex; justify-content: center; }
-    .panel-acceso { width: min(420px, 100%); margin-top: 28px; text-align: center; }
-    .reglas-texto { list-style: none; margin: 8px 0 0; padding: 0; color: #444; }
+    .panel-acceso {
+      width: min(440px, 100%);
+      margin-top: 36px;
+      padding: 28px 28px 32px;
+      background: #fff;
+      border: 1px solid #e2e2e2;
+      text-align: left;
+    }
+    .panel-acceso h2 { margin-bottom: 8px; text-align: center; }
+    .reglas-texto { list-style: none; margin: 8px 0 0; padding: 0; color: #555; font-size: 14px; }
     .reglas-texto li { margin: 2px 0; }
     .reglas-texto li.cumple { color: #0d7a32; }
     .reglas-texto li.falta { color: #a32020; }
-    .accion { margin-top: 28px; }
-    .trabajo { display: grid; grid-template-columns: minmax(280px, 0.9fr) 1.4fr; gap: 28px; margin-top: 20px; }
-    .caja-hash { margin-top: 14px; padding: 12px; border: 1px solid #ccc; background: #fafafa; }
-    .hash { margin: 8px 0; font-family: Consolas, monospace; font-size: 14px; line-height: 1.7; word-break: break-all; }
-    .hash .grupo { margin-right: 0.4em; }
+    .accion { margin: 28px 0 0; text-align: center; }
+    .cambio { margin: 14px 0 0; text-align: center; }
+    button.enlace {
+      background: transparent;
+      color: #1a1a1a;
+      border: none;
+      padding: 0;
+      text-decoration: underline;
+    }
+    button.enlace:hover { background: transparent; color: #333; }
+    .intro { margin: 0 0 16px; }
+    .trabajo { display: grid; grid-template-columns: minmax(300px, 0.95fr) 1.25fr; gap: 16px; }
+    .bloque {
+      background: #fff;
+      border: 1px solid #e2e2e2;
+      padding: 18px 18px 20px;
+    }
+    .bloque-ancho { margin-top: 16px; }
+    .cabecera-bloque {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .bloque > h2 { margin-bottom: 12px; }
+    .caja-hash { margin-top: 14px; padding: 12px 14px; border: 1px solid #e2e2e2; background: #fafafa; }
+    .etiqueta { margin: 0; font-size: 13px; color: #555; }
+    .hash { margin: 8px 0 0; font-family: Consolas, monospace; font-size: 14px; line-height: 1.75; word-break: break-all; }
+    .hash .grupo { margin-right: 0.45em; }
     .digito-ok { color: #0d7a32; }
     .digito-roto { background: #f4c7c7; color: #a32020; font-weight: 700; }
-    .sale { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 8px; }
-    .sale .sello { width: 74px; height: 74px; margin: 0; font-size: 11px; }
+    .sale {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #e2e2e2;
+    }
+    .sale p { margin: 0; }
+    .sale .sello { width: 72px; height: 72px; margin: 0; font-size: 11px; }
     table { width: 100%; border-collapse: collapse; }
-    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; vertical-align: middle; }
-    th { background: #fafafa; font-weight: 650; }
-    .par { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .comparado { border-top: 1px solid #ccc; margin-top: 14px; padding-top: 12px; }
+    th, td { border-bottom: 1px solid #e6e6e6; padding: 10px 8px; text-align: left; vertical-align: middle; }
+    th { color: #555; font-size: 13px; font-weight: 650; }
+    tr:last-child td { border-bottom: none; }
+    td button { padding: 5px 10px; }
+    .par { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px; }
+    .comparado + .comparado { margin-top: 20px; padding-top: 16px; border-top: 1px solid #e6e6e6; }
     .sello {
       width: 96px;
       height: 96px;
@@ -74,83 +124,77 @@
     }
     .caja-texto {
       margin: 0 0 8px;
-      border: 1px solid #ccc;
-      padding: 8px;
+      border: 1px solid #e2e2e2;
+      padding: 10px;
       max-height: 140px;
       overflow: auto;
       white-space: pre-wrap;
-      font: 13px/1.4 Consolas, monospace;
+      font: 13px/1.45 Consolas, monospace;
+      background: #fafafa;
     }
-    .caja-texto.nuevo { border-color: #a32020; }
-    .errores { margin: 8px 0; padding-left: 18px; color: #a32020; }
+    .caja-texto.nuevo { border-color: #a32020; background: #fff; }
+    .errores { margin: 8px 0 0; padding-left: 18px; color: #a32020; text-align: left; }
     h3 { font-size: 16px; font-weight: 650; margin: 0 0 4px; }
     p { margin: 0 0 8px; }
-    .nota { color: #444; }
+    .nota { color: #555; }
     .estado {
       display: inline-block;
       margin: 0;
-      padding: 6px 10px;
+      padding: 4px 10px;
       border: 1px solid #a32020;
       color: #a32020;
+      font-size: 13px;
       font-weight: 700;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.06em;
     }
     .estado.oficial { border-color: #0d7a32; color: #0d7a32; }
     .alerta {
-      margin-top: 10px;
+      margin: 0 0 12px;
       padding: 8px 10px;
       border: 1px solid #a32020;
       color: #a32020;
+      background: #fff;
     }
     textarea {
-      width: 100%;
-      box-sizing: border-box;
-      min-height: 140px;
-      padding: 8px;
-      border: 1px solid #888;
-      font: 15px/1.45 Consolas, monospace;
-      color: #161616;
-      background: #fff;
+      min-height: 160px;
+      font: 15px/1.5 Consolas, monospace;
       resize: vertical;
     }
     button {
       font: inherit;
-      background: #161616;
+      background: #1a1a1a;
       color: #fff;
-      border: 1px solid #161616;
-      padding: 7px 12px;
+      border: 1px solid #1a1a1a;
+      padding: 8px 16px;
       cursor: pointer;
     }
+    button:hover { background: #333; }
     button:disabled { background: #8a8a8a; border-color: #8a8a8a; cursor: default; }
-    .persona { border: 1px solid #ddd; padding: 10px; }
-    .persona dl { grid-template-columns: 1fr; }
     .ok { color: #0d7a32; font-weight: 700; }
     .mal { color: #a32020; font-weight: 700; }
     dl {
       display: grid;
-      grid-template-columns: 11rem 1fr;
-      gap: 3px 12px;
-      margin: 8px 0;
+      grid-template-columns: 9.5rem 1fr;
+      gap: 4px 12px;
+      margin: 8px 0 0;
     }
-    dt { color: #444; }
+    dt { color: #555; }
     dd { margin: 0; font-family: Consolas, monospace; font-size: 13px; word-break: break-all; }
-    details { margin-top: 8px; }
-    summary { cursor: pointer; }
-    .mono { font-family: Consolas, monospace; font-size: 13px; word-break: break-all; }
+    .mono { font-family: Consolas, monospace; font-size: 13px; word-break: break-all; color: #333; }
     @media (max-width: 860px) {
       .trabajo, .par { grid-template-columns: 1fr; }
+      .cabecera-bloque { align-items: flex-start; flex-direction: column; }
     }
   </style>
 </head>
 <body>
 <header class="barra">
-  <h1>DSA — Contrato multifirma</h1>
-  <div id="menu-acceso" class="barra-acciones">
-    <button type="button" id="tab-entrar" class="activo">Entrar</button>
-    <button type="button" id="tab-registro" class="claro">Crear cuenta</button>
+  <div>
+    <h1>DSA — Contrato multifirma</h1>
+    <p class="equipo">Equipo 2</p>
   </div>
   <div id="menu-sesion" class="barra-acciones" hidden>
-    <span id="quien"></span>
+    <span id="quien" class="quien"></span>
     <button type="button" id="salir" class="claro">Salir</button>
   </div>
 </header>
@@ -164,6 +208,7 @@
       <label for="clave-entrar">Clave de acceso</label>
       <input id="clave-entrar" type="password" autocomplete="current-password">
       <p class="accion"><button type="submit">Entrar</button></p>
+      <p class="cambio"><button type="button" class="enlace" id="ir-registro">Crear cuenta</button></p>
     </form>
     <form id="form-registro" class="panel-acceso" novalidate hidden>
       <h2>Crear cuenta</h2>
@@ -189,26 +234,29 @@
         <li data-req="especial">Al menos un carácter especial</li>
       </ul>
       <p class="accion"><button type="submit">Crear cuenta</button></p>
+      <p class="cambio"><button type="button" class="enlace" id="ir-entrar">Entrar</button></p>
     </form>
   </section>
 
   <section id="app" hidden>
-    <p class="nota">Solo aparecen las cuentas registradas. Si cambia una letra, el hash cambia y las firmas dejan de servir.</p>
+    <p class="nota intro">Solo aparecen las cuentas registradas. Si cambia una letra, el hash cambia y las firmas dejan de servir.</p>
     <div class="trabajo">
-      <div>
-        <h2>Contrato</h2>
-        <p id="estado" class="estado">EN REVISIÓN</p>
+      <div class="bloque">
+        <div class="cabecera-bloque">
+          <h2>Contrato</h2>
+          <p id="estado" class="estado">EN REVISIÓN</p>
+        </div>
         <p id="conteo" class="nota"></p>
         <p id="alerta" class="alerta" role="alert" hidden></p>
         <p id="aviso" class="alerta" role="alert" hidden></p>
         <textarea id="contrato" spellcheck="false"></textarea>
         <div class="caja-hash">
-          <p>Hash SHA-256 del texto actual</p>
+          <p class="etiqueta">Hash SHA-256 del texto actual</p>
           <div id="hash-actual"></div>
           <div id="sale-del-hash"></div>
         </div>
       </div>
-      <div>
+      <div class="bloque">
         <h2>Firmas</h2>
         <table>
           <thead>
@@ -222,8 +270,10 @@
         </table>
       </div>
     </div>
-    <h2>Firma y sello</h2>
-    <div id="comparacion"></div>
+    <section class="bloque bloque-ancho">
+      <h2>Firma y sello</h2>
+      <div id="comparacion"></div>
+    </section>
   </section>
 </main>
 <script>
@@ -637,7 +687,13 @@ function pintarComparacion(texto, hashAhora) {
   const caja = document.querySelector("#comparacion");
   caja.replaceChildren();
   const firmados = FIRMANTES.filter((persona) => persona.firma);
-  if (!firmados.length) return;
+  if (!firmados.length) {
+    const vacio = document.createElement("p");
+    vacio.className = "nota";
+    vacio.textContent = "Todavía no hay firmas. El sello aparece cuando alguien firma el texto actual.";
+    caja.append(vacio);
+    return;
+  }
 
   for (const persona of firmados) {
     const firma = persona.firma;
@@ -794,15 +850,12 @@ function mostrarAcceso(tab) {
   const entrar = tab === "entrar";
   document.querySelector("#form-entrar").hidden = !entrar;
   document.querySelector("#form-registro").hidden = entrar;
-  document.querySelector("#tab-entrar").className = entrar ? "activo" : "claro";
-  document.querySelector("#tab-registro").className = entrar ? "claro" : "activo";
 }
 
 function abrirSesion(usuario) {
   sesionCorreo = usuario.correo;
   sessionStorage.setItem("sello-sesion", usuario.correo);
   document.querySelector("#acceso").hidden = true;
-  document.querySelector("#menu-acceso").hidden = true;
   document.querySelector("#menu-sesion").hidden = false;
   document.querySelector("#quien").textContent = usuario.nombre;
   document.querySelector("#app").hidden = false;
@@ -817,7 +870,6 @@ function cerrarSesion() {
   sesionCorreo = "";
   sessionStorage.removeItem("sello-sesion");
   document.querySelector("#acceso").hidden = false;
-  document.querySelector("#menu-acceso").hidden = false;
   document.querySelector("#menu-sesion").hidden = true;
   document.querySelector("#app").hidden = true;
   mostrarAcceso("entrar");
@@ -838,8 +890,8 @@ function prepararLaboratorio() {
 }
 
 function iniciar() {
-  document.querySelector("#tab-entrar").addEventListener("click", () => mostrarAcceso("entrar"));
-  document.querySelector("#tab-registro").addEventListener("click", () => mostrarAcceso("registro"));
+  document.querySelector("#ir-entrar").addEventListener("click", () => mostrarAcceso("entrar"));
+  document.querySelector("#ir-registro").addEventListener("click", () => mostrarAcceso("registro"));
   document.querySelector("#salir").addEventListener("click", cerrarSesion);
   document.querySelector("#clave").addEventListener("input", (evento) => pintarReglas(evento.target.value, false));
   document.querySelector("#correo").addEventListener("input", (evento) => pintarReglasCorreo(evento.target.value, false));

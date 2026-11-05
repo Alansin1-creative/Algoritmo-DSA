@@ -1,0 +1,10 @@
+{
+  "name": "sello-dsa",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Equipo 2 — aplicación web de firma digital con DSA",
+  "scripts": {
+    "start": "node server.js",
+    "comprobar": "node comprobar.js"
+  }
+}

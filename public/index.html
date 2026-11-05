@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sello DSA · Equipo 2</title>
+  <meta name="description" content="Equipo 2. Aplicación web de firma digital con DSA.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,560;8..60,680&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/estilos.css">
+</head>
+<body>
+  <header class="cabecera">
+    <div class="marca">
+      <div class="emblema" aria-hidden="true"><span>DSA</span></div>
+      <div>
+        <p class="ceja">Equipo 2 · Presentación en clase</p>
+        <h1>Sello DSA</h1>
+      </div>
+    </div>
+    <div id="caja-sesion" class="caja-sesion">Sin sesión</div>
+  </header>
+
+  <nav class="menu" aria-label="Secciones">
+    <button type="button" data-vista="inicio">Inicio</button>
+    <button type="button" data-vista="registro">Registro</button>
+    <button type="button" data-vista="acceso">Acceso</button>
+    <button type="button" data-vista="laboratorio">Laboratorio</button>
+    <button type="button" data-vista="documentacion">Documentación</button>
+    <button type="button" data-vista="guia">Guía de clase</button>
+  </nav>
+
+  <main>
+    <section id="vista-inicio" class="hoja">
+      <p class="ceja">Firma digital, no cifrado del mensaje</p>
+      <h2>El algoritmo del equipo es DSA</h2>
+      <p class="lead">
+        DSA (Digital Signature Algorithm) está definido en FIPS 186-4. No esconde el mensaje:
+        produce un sello <strong>(r, s)</strong>. Solo la clave privada puede crearlo.
+        Cualquiera, con la clave pública, comprueba si el texto sigue intacto.
+      </p>
+
+      <div class="rejilla">
+        <article class="tarjeta">
+          <h3>1. Cuenta</h3>
+          <p>Nombre, correo y celular son obligatorios. La clave de acceso cumple cuatro reglas antes de abrir el laboratorio.</p>
+        </article>
+        <article class="tarjeta">
+          <h3>2. Claves</h3>
+          <p>El servidor genera p, q y g, elige la clave privada x y publica y = g<sup>x</sup> mod p. x no viaja al navegador.</p>
+        </article>
+        <article class="tarjeta">
+          <h3>3. Sello</h3>
+          <p>Firmar usa <span class="mono">createSign("SHA256")</span>. Verificar usa <span class="mono">createVerify("SHA256")</span>. Si cambia una letra, el sello falla.</p>
+        </article>
+      </div>
+
+      <div class="formulas" aria-label="Fórmulas de DSA">
+        <p>y = g<sup>x</sup> mod p</p>
+        <p>r = (g<sup>k</sup> mod p) mod q</p>
+        <p>s = k<sup>−1</sup> (z + x·r) mod q</p>
+        <p>válida si v = r</p>
+      </div>
+      <p class="nota">z es el entero del resumen SHA-256 del mensaje. k lo elige OpenSSL en cada firma y no se guarda.</p>
+
+      <h3>Reglas que exige la clase</h3>
+      <ul class="reglas">
+        <li>El nombre, el correo y el celular no pueden estar vacíos.</li>
+        <li>El correo debe tener formato de correo electrónico.</li>
+        <li>El celular debe tener exactamente 10 dígitos.</li>
+        <li>La clave de acceso tiene mínimo 10 caracteres, con letras, al menos un número y un carácter especial.</li>
+      </ul>
+      <div class="fila-botones">
+        <button type="button" class="primario" data-vista="registro">Crear cuenta</button>
+        <button type="button" class="secundario" data-vista="acceso">Ya tengo cuenta</button>
+      </div>
+    </section>
+
+    <section id="vista-registro" class="hoja" hidden>
+      <h2>Registro</h2>
+      <p>Estos datos identifican a quien va a firmar. La clave de acceso no es la clave privada DSA: solo abre la sesión.</p>
+      <form id="form-registro" novalidate>
+        <ul id="errores-registro" class="errores" role="alert" hidden></ul>
+        <div class="campo">
+          <label for="nombre">Nombre</label>
+          <input id="nombre" name="nombre" autocomplete="name" maxlength="80" required>
+        </div>
+        <div class="campo">
+          <label for="correo">Correo electrónico</label>
+          <input id="correo" name="correo" type="email" autocomplete="email" maxlength="120" required>
+        </div>
+        <div class="campo">
+          <label for="celular">Celular</label>
+          <input id="celular" name="celular" inputmode="numeric" autocomplete="tel" maxlength="10" placeholder="10 dígitos" required>
+          <small>Exactamente 10 dígitos, sin lada.</small>
+        </div>
+        <div class="campo">
+          <label for="clave">Clave de acceso</label>
+          <input id="clave" name="clave" type="password" autocomplete="new-password" maxlength="128" required>
+          <ul class="requisitos" id="requisitos-clave">
+            <li data-req="longitud">Mínimo 10 caracteres</li>
+            <li data-req="letras">Al menos una letra</li>
+            <li data-req="numero">Al menos un número</li>
+            <li data-req="especial">Al menos un carácter especial, por ejemplo ! @ # -</li>
+          </ul>
+        </div>
+        <div class="fila-botones">
+          <button type="submit" class="primario">Crear cuenta</button>
+          <button type="button" class="secundario" id="btn-ejemplo">Cargar ejemplo</button>
+          <button type="button" class="secundario" id="btn-vaciar">Vaciar</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="vista-acceso" class="hoja" hidden>
+      <h2>Acceso</h2>
+      <p>Entra con el correo y la clave que registraste.</p>
+      <form id="form-acceso" novalidate>
+        <ul id="errores-acceso" class="errores" role="alert" hidden></ul>
+        <div class="campo">
+          <label for="correo-acceso">Correo electrónico</label>
+          <input id="correo-acceso" name="correo" type="email" autocomplete="username" required>
+        </div>
+        <div class="campo">
+          <label for="clave-acceso">Clave de acceso</label>
+          <input id="clave-acceso" name="clave" type="password" autocomplete="current-password" required>
+        </div>
+        <button type="submit" class="primario">Entrar</button>
+      </form>
+    </section>
+
+    <section id="vista-laboratorio" class="hoja" hidden>
+      <div id="aviso-laboratorio" class="nota" hidden></div>
+      <div id="lab-contenido">
+        <p class="ceja" id="lab-usuario"></p>
+        <h2>Laboratorio de firma</h2>
+        <ol class="modulos">
+          <li><span class="mono">generarParDeClaves()</span> llama a <span class="mono">crypto.generateKeyPairSync("dsa")</span></li>
+          <li><span class="mono">firmarMensaje()</span> llama a <span class="mono">crypto.createSign("SHA256")</span></li>
+          <li><span class="mono">verificarFirma()</span> llama a <span class="mono">crypto.createVerify("SHA256")</span></li>
+        </ol>
+
+        <ul id="errores-lab" class="errores" role="alert" hidden></ul>
+
+        <div class="fila-botones">
+          <button type="button" class="primario" id="btn-generar">Generar claves DSA</button>
+          <p id="estado-generar" class="nota" aria-live="polite"></p>
+        </div>
+
+        <div id="panel-claves" hidden>
+          <div class="rejilla tres">
+            <article class="tarjeta">
+              <h3>Parámetros</h3>
+              <p>Módulo p: <strong id="p-bits"></strong> bits</p>
+              <p>Subgrupo q: <strong id="q-bits"></strong> bits</p>
+              <p>OID <span class="mono" id="oid"></span></p>
+              <p>Huella SHA-256 de la clave pública</p>
+              <p class="mono corto" id="huella"></p>
+            </article>
+            <article class="tarjeta">
+              <h3>Clave pública y</h3>
+              <p>Se puede mostrar. Cualquiera verifica con ella.</p>
+              <p class="mono corto" id="y-hex"></p>
+            </article>
+            <article class="tarjeta">
+              <h3>Clave privada x</h3>
+              <p>Se queda en el servidor. Solo ves los extremos, para comprobar que existe.</p>
+              <p class="mono corto" id="x-muestra"></p>
+              <p id="x-bits"></p>
+            </article>
+          </div>
+          <details>
+            <summary>Ver p, q, g y la PEM pública</summary>
+            <h3>Primo p</h3>
+            <p class="mono bloque" id="p-hex"></p>
+            <h3>Primo q</h3>
+            <p class="mono bloque" id="q-hex"></p>
+            <h3>Generador g</h3>
+            <p class="mono bloque" id="g-hex"></p>
+            <h3>PEM pública</h3>
+            <pre class="mono bloque" id="pem-publica"></pre>
+          </details>
+        </div>
+
+        <div class="laboratorio">
+          <div>
+            <label for="mensaje">Mensaje a firmar</label>
+            <textarea id="mensaje" rows="7" maxlength="4000" placeholder="Escribe el mensaje que va a llevar el sello."></textarea>
+            <div class="fila-botones">
+              <button type="button" class="secundario" id="btn-ejemplo-mensaje">Mensaje de ejemplo</button>
+              <button type="button" class="primario" id="btn-firmar" disabled>Firmar mensaje</button>
+              <button type="button" class="secundario" id="btn-verificar" disabled>Verificar firma</button>
+              <button type="button" class="secundario" id="btn-alterar" disabled>Alterar el mensaje y verificar</button>
+            </div>
+          </div>
+          <div id="resultado" class="resultado" aria-live="polite">
+            <div id="sello" class="sello espera">Sin<br>verificar</div>
+            <div>
+              <h3>Resumen SHA-256 del texto actual</h3>
+              <p class="mono corto" id="hash-actual">—</p>
+              <h3>Resumen del mensaje firmado</h3>
+              <p class="mono corto" id="hash-original">—</p>
+              <h3>r</h3>
+              <p class="mono corto" id="r-hex">—</p>
+              <h3>s</h3>
+              <p class="mono corto" id="s-hex">—</p>
+              <p id="rango" class="nota"></p>
+            </div>
+          </div>
+        </div>
+
+        <h3>Bitácora de la exposición</h3>
+        <ol id="bitacora" class="bitacora"></ol>
+      </div>
+    </section>
+
+    <section id="vista-documentacion" class="hoja documento" hidden>
+      <div class="fila-botones no-imprimir">
+        <a class="primario enlace" href="/docs/MODULO_DSA.md">Descargar documentación</a>
+      </div>
+      <article id="cuerpo-documentacion"></article>
+    </section>
+
+    <section id="vista-guia" class="hoja" hidden>
+      <h2>Guía para exponer</h2>
+      <p>Unos seis minutos. El proyector se lee mejor en esta pantalla clara. Empieza en Inicio.</p>
+      <ol class="pasos">
+        <li>
+          <h3>Qué es lo del equipo</h3>
+          <p>Di: «Somos el equipo 2 y nos tocó DSA. Es el algoritmo de firma del estándar FIPS 186-4. No cifra el mensaje para ocultarlo: pone un sello (r, s). La clave privada firma y la clave pública verifica.»</p>
+        </li>
+        <li>
+          <h3>Muestra las validaciones</h3>
+          <p>En Registro, pulsa Crear cuenta vacío. Después prueba una clave corta, una sin número y una sin carácter especial. El servidor rechaza cada caso.</p>
+          <p>Ejemplo que sí pasa: nombre Mariana Solís, correo equipo2@sello-dsa.dev, celular 5512345678, clave <span class="mono">Equipo2-DSA</span>. El botón Cargar ejemplo lo escribe.</p>
+        </li>
+        <li>
+          <h3>Genera las claves</h3>
+          <p>En Laboratorio pulsa Generar claves DSA. Tarda un par de segundos porque busca primos de 2048 bits. Señala y = g<sup>x</sup> mod p y deja claro que x completa no aparece en la página.</p>
+        </li>
+        <li>
+          <h3>Firma y rompe el mensaje</h3>
+          <p>Carga el mensaje de ejemplo, fírmalo y verifica: el sello queda válido. Luego pulsa Alterar el mensaje y verificar. Cambia el resumen SHA-256 y el sello pasa a inválido. Si borras el carácter extra, vuelve a ser válido.</p>
+        </li>
+        <li>
+          <h3>Cierra con el módulo</h3>
+          <p>Abre Documentación. Las funciones que hay que mostrar son <span class="mono">generarParDeClaves</span>, <span class="mono">firmarMensaje</span> y <span class="mono">verificarFirma</span>, del archivo <span class="mono">lib/dsa.js</span>. Por debajo usan el módulo <span class="mono">crypto</span> de Node.js. El archivo para subir es <span class="mono">docs/MODULO_DSA.md</span>.</p>
+        </li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="pie">
+    Equipo 2 · DSA · FIPS 186-4 · módulo Node.js <span class="mono">crypto</span>
+  </footer>
+  <script src="/app.js"></script>
+</body>
+</html>
